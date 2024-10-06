@@ -1,5 +1,7 @@
-import { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+// src/App.js
+
+import { useState, useEffect } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
@@ -11,35 +13,107 @@ import Form from "./scenes/form";
 import Line from "./scenes/line";
 import Pie from "./scenes/pie";
 import FAQ from "./scenes/faq";
+import Login from "./scenes/loginandregister";
 import Geography from "./scenes/geography";
+import Calendar from "./scenes/calendar/calendar";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
-import Calendar from "./scenes/calendar/calendar";
 
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
+
+  // Authentication state
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // Optional: Persist authentication state using localStorage
+  useEffect(() => {
+    const authStatus = localStorage.getItem("isAuthenticated") === "true";
+    setIsAuthenticated(authStatus);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("isAuthenticated", isAuthenticated);
+  }, [isAuthenticated]);
 
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
-          <Sidebar isSidebar={isSidebar} />
+          {/* Conditionally render Sidebar based on authentication */}
+          {isAuthenticated && <Sidebar isSidebar={isSidebar} />}
           <main className="content">
-            <Topbar setIsSidebar={setIsSidebar} />
+            {/* Conditionally render Topbar based on authentication */}
+            {isAuthenticated && <Topbar setIsSidebar={setIsSidebar} />}
             <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/team" element={<Team />} />
-              <Route path="/contacts" element={<Contacts />} />
-              <Route path="/invoices" element={<Invoices />} />
-              <Route path="/form" element={<Form />} />
-              <Route path="/bar" element={<Bar />} />
-              <Route path="/pie" element={<Pie />} />
-              <Route path="/line" element={<Line />} />
-              <Route path="/faq" element={<FAQ />} />
-              <Route path="/calendar" element={<Calendar />} />
-              <Route path="/geography" element={<Geography />} />
+              {/* Public Route */}
+              <Route
+                path="/"
+                element={
+                  isAuthenticated ? (
+                    <Navigate to="/dashboard" />
+                  ) : (
+                    <Login setIsAuthenticated={setIsAuthenticated} />
+                  )
+                }
+              />
+
+              {/* Protected Routes */}
+              <Route
+                path="/dashboard"
+                element={
+                  isAuthenticated ? <Dashboard /> : <Navigate to="/" />
+                }
+              />
+              <Route
+                path="/team"
+                element={isAuthenticated ? <Team /> : <Navigate to="/" />}
+              />
+              <Route
+                path="/contacts"
+                element={
+                  isAuthenticated ? <Contacts /> : <Navigate to="/" />
+                }
+              />
+              <Route
+                path="/invoices"
+                element={
+                  isAuthenticated ? <Invoices /> : <Navigate to="/" />
+                }
+              />
+              <Route
+                path="/form"
+                element={isAuthenticated ? <Form /> : <Navigate to="/" />}
+              />
+              <Route
+                path="/bar"
+                element={isAuthenticated ? <Bar /> : <Navigate to="/" />}
+              />
+              <Route
+                path="/pie"
+                element={isAuthenticated ? <Pie /> : <Navigate to="/" />}
+              />
+              <Route
+                path="/line"
+                element={isAuthenticated ? <Line /> : <Navigate to="/" />}
+              />
+              <Route
+                path="/faq"
+                element={isAuthenticated ? <FAQ /> : <Navigate to="/" />}
+              />
+              <Route
+                path="/calendar"
+                element={isAuthenticated ? <Calendar /> : <Navigate to="/" />}
+              />
+              <Route
+                path="/geography"
+                element={
+                  isAuthenticated ? <Geography /> : <Navigate to="/" />
+                }
+              />
+              {/* Catch-all Route */}
+              <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </main>
         </div>
