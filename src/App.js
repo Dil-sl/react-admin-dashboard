@@ -14,6 +14,7 @@ import Line from "./scenes/line";
 import Pie from "./scenes/pie";
 import FAQ from "./scenes/faq";
 import Login from "./scenes/loginandregister";
+import POSCashierPage from "./scenes/POS";
 import Geography from "./scenes/geography";
 import Calendar from "./scenes/calendar/calendar";
 import { CssBaseline, ThemeProvider } from "@mui/material";
@@ -69,6 +70,10 @@ function App() {
               <Route
                 path="/team"
                 element={isAuthenticated ? <Team /> : <Navigate to="/" />}
+              />
+              <Route
+                path="/POS"
+                element={isAuthenticated ? <POSCashierPage /> : <Navigate to="/" />}
               />
               <Route
                 path="/contacts"
