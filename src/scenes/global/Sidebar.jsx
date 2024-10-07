@@ -154,6 +154,49 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
+            {/* New Items */}
+            <Item
+              title="Manage Products"
+              to="/products/manage"
+              icon={<ReceiptOutlinedIcon />} // You can change this icon as needed
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Manage Stocks"
+              to="/stocks/manage"
+              icon={<ReceiptOutlinedIcon />} // You can change this icon as needed
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Manage Products"
+              to="/products/create"
+              icon={<ReceiptOutlinedIcon />} // You can change this icon as needed
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Manage Stocks"
+              to="/stocks/create"
+              icon={<ReceiptOutlinedIcon />} // You can change this icon as needed
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Manage Products"
+              to="/customer/create"
+              icon={<ReceiptOutlinedIcon />} // You can change this icon as needed
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Manage Stocks"
+              to="/customer/manage"
+              icon={<ReceiptOutlinedIcon />} // You can change this icon as needed
+              selected={selected}
+              setSelected={setSelected}
+            />
 
             <Typography
               variant="h6"
@@ -166,6 +209,14 @@ const Sidebar = () => {
               title="Profile Form"
               to="/form"
               icon={<PersonOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            {/* Add POS Cashier Page Item */}
+            <Item
+              title="POS"
+              to="/POS"
+              icon={<PointOfSaleOutlinedIcon />} // Use POS icon
               selected={selected}
               setSelected={setSelected}
             />
@@ -216,15 +267,6 @@ const Sidebar = () => {
               title="Geography Chart"
               to="/geography"
               icon={<MapOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
-            {/* Add POS Cashier Page Item */}
-            <Item
-              title="POS"
-              to="/POS"
-              icon={<PointOfSaleOutlinedIcon />} // Use POS icon
               selected={selected}
               setSelected={setSelected}
             />

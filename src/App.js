@@ -1,5 +1,3 @@
-// src/App.js
-
 import { useState, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
@@ -17,6 +15,16 @@ import Login from "./scenes/loginandregister";
 import POSCashierPage from "./scenes/POS";
 import Geography from "./scenes/geography";
 import Calendar from "./scenes/calendar/calendar";
+
+// Import new pages
+import CreateProduct from "./scenes/products/createProduct";
+import ManageProducts from "./scenes/products/manageProduct";
+import CreateStock from "./scenes/stocks/createStock";
+import ManageStocks from "./scenes/stocks/manageStock";
+//customer pages
+import CreateCustomer from "./scenes/customer/CreateCustomer";
+import ManageCustomer from "./scenes/customer/ManageCustomers";
+
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 
@@ -117,6 +125,35 @@ function App() {
                   isAuthenticated ? <Geography /> : <Navigate to="/" />
                 }
               />
+
+              {/* Product Management Routes */}
+              <Route
+                path="/products/create"
+                element={isAuthenticated ? <CreateProduct /> : <Navigate to="/" />}
+              />
+              <Route
+                path="/products/manage"
+                element={isAuthenticated ? <ManageProducts /> : <Navigate to="/" />}
+              />
+
+              {/* Stock Management Routes */}
+              <Route
+                path="/stocks/create"
+                element={isAuthenticated ? <CreateStock /> : <Navigate to="/" />}
+              />
+              <Route
+                path="/stocks/manage"
+                element={isAuthenticated ? <ManageStocks /> : <Navigate to="/" />}
+              />
+              <Route
+                path="/customer/create"
+                element={isAuthenticated ? <CreateCustomer /> : <Navigate to="/" />}
+              />
+              <Route
+                path="/customer/manage"
+                element={isAuthenticated ? <ManageCustomer /> : <Navigate to="/" />}
+              />
+
               {/* Catch-all Route */}
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
