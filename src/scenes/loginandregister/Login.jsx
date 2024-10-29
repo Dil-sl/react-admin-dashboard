@@ -1,14 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import { useTheme } from "@mui/material/styles";
 import { TextField, Button, Typography, Box, Card, CardContent, CardMedia } from "@mui/material";
 
 const Login = ({ setIsAuthenticated }) => {
     const theme = useTheme(); // Get the current theme
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
-    const handleLogin = (event) => {
+    const handleLogin = async (event) => {
         event.preventDefault();
-        // Handle authentication logic here
-        setIsAuthenticated(true); // Example for setting authentication
+
+        try {
+            // API call to the login endpoint
+            const response = await axios.post(`https://localhost:7026/Auth/login`, {
+                username: username,
+                password: password,
+            });
+
+            if (response.status === 200 && response.data) {
+                debugger;
+                // Store response and set authentication on successful login
+                localStorage.setItem("authToken", response.data.content); // Adjust based on actual token field
+                setIsAuthenticated(true);
+            } else {
+                setError("Login failed. Please try again.");
+            }
+        } catch (error) {
+            console.error("Login error:", error);
+            setError("Invalid username or password.");
+        }
     };
 
     return (
@@ -32,10 +54,17 @@ const Login = ({ setIsAuthenticated }) => {
                     <Typography variant="h5" sx={{ color: theme.palette.primary.main, mb: 2, textAlign: 'center' }}>
                         Login
                     </Typography>
+                    {error && (
+                        <Typography color="error" sx={{ textAlign: 'center', mb: 2 }}>
+                            {error}
+                        </Typography>
+                    )}
                     <form onSubmit={handleLogin}>
                         <TextField
                             variant="outlined"
                             label="Username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
                             fullWidth
                             margin="normal"
                             sx={{
@@ -54,6 +83,8 @@ const Login = ({ setIsAuthenticated }) => {
                             variant="outlined"
                             label="Password"
                             type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             fullWidth
                             margin="normal"
                             sx={{
