@@ -170,28 +170,28 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="Manage Products"
+              title="Create Products"
               to="/products/create"
               icon={<ReceiptOutlinedIcon />} // You can change this icon as needed
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Manage Stocks"
+              title="Create Stocks"
               to="/stocks/create"
               icon={<ReceiptOutlinedIcon />} // You can change this icon as needed
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Manage Products"
+              title="Create Customer"
               to="/customer/create"
               icon={<ReceiptOutlinedIcon />} // You can change this icon as needed
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Manage Stocks"
+              title="Manage Customer"
               to="/customer/manage"
               icon={<ReceiptOutlinedIcon />} // You can change this icon as needed
               selected={selected}
